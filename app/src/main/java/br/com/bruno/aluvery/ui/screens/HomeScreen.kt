@@ -25,13 +25,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.bruno.aluvery.extensions.filterProducts
 import br.com.bruno.aluvery.model.Product
+import br.com.bruno.aluvery.model.Store
 import br.com.bruno.aluvery.sampledata.sampleProducts
 import br.com.bruno.aluvery.sampledata.sampleSections
+import br.com.bruno.aluvery.sampledata.sampleStoreSections
 import br.com.bruno.aluvery.ui.components.CardProductItem
 import br.com.bruno.aluvery.ui.components.ProductItem
 import br.com.bruno.aluvery.ui.components.ProductsSection
 import br.com.bruno.aluvery.ui.components.ProductsSectionWithDescription
 import br.com.bruno.aluvery.ui.components.SearchTextField
+import br.com.bruno.aluvery.ui.components.StoreSection
 
 @Composable
 fun HomeScreen1(
@@ -46,7 +49,8 @@ fun HomeScreen1(
             onSearchChange = { newValue ->
                 text = newValue
             },
-            Modifier.fillMaxWidth()
+            Modifier
+                .fillMaxWidth()
                 .padding(16.dp)
         )
 
@@ -71,6 +75,18 @@ fun HomeScreen1(
                         )
                     }
                 }
+
+                for (store in sampleStoreSections){
+                    val title = store.key
+                    val shop = store.value
+                    item {
+                        StoreSection(
+                            titleSection = title,
+                            stores = shop
+                        )
+                    }
+                }
+
             } else {
                 items(searchedProducts) { p ->
                     CardProductItem(

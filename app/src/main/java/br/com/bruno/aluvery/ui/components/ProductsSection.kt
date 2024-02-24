@@ -26,28 +26,33 @@ import br.com.bruno.aluvery.ui.theme.AluveryTheme
 @Composable
 fun ProductsSection(
     titleSection: String = "",
-    modifier: Modifier = Modifier,
     products: List<Product>,
+    modifier: Modifier = Modifier
 ) {
-    Column(modifier) {
-        Text(
-            text = titleSection,
-            fontSize = 20.sp,
-            fontWeight = FontWeight(400),
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
-        )
-        LazyRow(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp)
-        ) {
-            items(products){product->
-                ProductItem(product = product)
+    Section(
+        title = {
+            Text(
+                text = titleSection,
+                fontSize = 20.sp,
+                fontWeight = FontWeight(400),
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+            )
+        },
+        content = {
+            LazyRow(
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp)
+            ) {
+                items(products){product->
+                    ProductItem(product = product)
+                }
             }
-        }
-    }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
