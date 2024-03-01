@@ -2,6 +2,7 @@ package br.com.bruno.aluvery.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +21,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import br.com.bruno.aluvery.R
 import br.com.bruno.aluvery.extensions.toBrazilianCurrency
 import br.com.bruno.aluvery.model.Product
+import br.com.bruno.aluvery.ui.dialogs.InfoProductDialog
 import br.com.bruno.aluvery.ui.theme.AluveryTheme
 import coil.compose.AsyncImage
 import java.math.BigDecimal
@@ -46,6 +50,16 @@ fun ProductItem(
     product: Product,
     modifier: Modifier = Modifier,
 ) {
+    val openDialog = remember { mutableStateOf(false) }
+
+    if (openDialog.value){
+            InfoProductDialog(
+                onDismissRequest = { openDialog.value = false },
+                image = product.image,
+                imageDescription = product.description
+            )
+    }
+
     Surface(
         modifier,
         shape = RoundedCornerShape(15.dp),
@@ -56,6 +70,9 @@ fun ProductItem(
                 .heightIn(min = 250.dp, max = 300.dp)
                 .width(200.dp)
                 .background(Color.White)
+                .clickable {
+                    openDialog.value = true
+                }
         ) {
             val imageSize = 100.dp
             val offset = imageSize / 2
